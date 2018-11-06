@@ -16,8 +16,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/main.js',
-        'js/tinymce/jquery.tinymce.min.js',
-        'js/tinymce/tinymce.min.js',
+        'https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=1qa5t0dn0b46dukvifb2b500e7ausw3qelzj0jie038xyejf'
     ];
     public $depends = [
         'yii\web\YiiAsset',
