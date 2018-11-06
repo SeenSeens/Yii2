@@ -28,7 +28,8 @@ class Book extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    //public $file;
+    public $file;
+    public $qtt;
 
     public static function tableName()
     {

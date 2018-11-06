@@ -1,10 +1,6 @@
 <?php
 
 use yii\db\Migration;
-
-/**
- * Class m181017_105309_book
- */
 class m181017_105309_book extends Migration
 {
     public function up()
@@ -20,7 +16,7 @@ class m181017_105309_book extends Migration
             'name' => $this->string()->notNull(),
             'cate' => $this->integer()->notNull()->defaultValue(0),
             'slug' => $this->string()->notNull()->unique(),
-            'image' => $this->string(),
+            'image' => $this->integer(),
             'desc' => $this->string(),
             'content' => $this->text()->notNull(),
             'price' => $this->integer()->notNull()->defaultValue(0),
@@ -32,21 +28,34 @@ class m181017_105309_book extends Migration
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
         ],$tableOptions);
+
+        //$this->alterColumn('book', 'image', $this->integer());
+        // $this->createIndex(
+        //     'idx-book-image',
+        //     'book',
+        //     'image'
+        // );
+
+        // $this->addForeignKey(
+        //     'fk-book-image',
+        //     'book',
+        //     'image',
+        //     'imagemanager',
+        //     'id',
+        //     'CASCADE'
+        // );
     }
 
-    
     public function down()
     {
+        // $this->dropForeignKey(
+        //     'fk-book-image',
+        //     'book'
+        // );
+        // $this->dropIndex(
+        //     'idx-book-image',
+        //     'book'
+        // );
         $this->dropTable('{{%book}}');
-    }
-
-    public function alterColumn($table, $column, $type)
-    {
-        $time = $this->beginCommand("alter column $column in table $table to $type");
-        $this->db->createCommand()->alterColumn($table, $column, $type)->execute();
-        if ($type instanceof ColumnSchemaBuilder && $type->comment !== null) {
-            $this->db->createCommand()->addCommentOnColumn($table, $column, $type->comment)->execute();
-        }
-        $this->endCommand($time);
     }
 }
