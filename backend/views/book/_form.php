@@ -29,7 +29,12 @@ use dosamigos\tinymce\TinyMce;
 
     <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'image')->fileInput(['multiple' => true, 'accept' => 'image/*'])?>
+    <?= $form->field($model, 'image')/* ->widget(\noam148\imagemanager\components\ImageManagerInputWidget::className(), [
+        'aspectRatio' => (16/9), //set the aspect ratio
+        'cropViewMode' => 1, //crop mode, option info: https://github.com/fengyuanchen/cropper/#viewmode
+        'showPreview' => true, //false to hide the preview
+        'showDeletePickedImageConfirm' => false, //on true show warning before detach image
+    ]) */ ->fileInput(['multiple' => true, 'accept' => 'image/*'])?>
 
     <?= $form->field($model, 'desc')->widget(TinyMCE::className(), [
         'options' => ['rows' => 6],
@@ -54,10 +59,13 @@ use dosamigos\tinymce\TinyMce;
         'options' => ['rows' => 6],
         'language' => 'es',
         'clientOptions' => [
+            'file_browser_callback' => new yii\web\JsExpression("function(field_name, url, type, win) {
+                window.open('".yii\helpers\Url::to(['../../../uploads/', 'view-mode'=>'iframe', 'select-type'=>'tinymce'])."&tag_name='+field_name,'','width=800,height=540 ,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no');
+            }"),
             'plugins' => [
                 "advlist autolink lists link charmap print preview anchor",
                 "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table contextmenu paste"
+                "insertdatetime media table contextmenu paste image"
             ],
             'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
         ]

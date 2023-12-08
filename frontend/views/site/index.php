@@ -17,7 +17,9 @@ $this->title = 'My Yii Application';
                     <?= $item->desc; ?>
 
                 <p><?= Html::a('Xem thêm &raquo;', ['/book/view', 'slug' => $item->slug], ['class' => 'btn btn-info']); ?></p>
+                <p><?= Html::a('Them vao gio', ['/cart/add-cart', 'slug' => $item->slug], ['class' => 'btn btn-success']); ?></p>
             </div>
+
         <?php endforeach; ?>
         </div>
     <?php endif; ?>
